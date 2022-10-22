@@ -6,7 +6,7 @@
       <img class="bl_upload_img" v-bind:src="storeGetUploadImageData" width="250" height="250" alt="">
       <div class="ly_btnTwoColumn">
         <a class="el_btn ic_image" href="#" v-on:click="imageSelect">업로드</a>
-        <a class="el_btn ic_search" href="#" v-on:click="onGetAxiosTest">찾기</a>.
+        <a class="el_btn ic_search" href="#" v-on:click="onGetAxiosTest">찾기</a>
       </div>
     </div>
     <input type="file" name="" value="" id="customFile" @change="handleFileChange" class="blind" ref="fileInput">
