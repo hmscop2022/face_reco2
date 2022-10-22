@@ -120,7 +120,7 @@ export default {
         const config = {
           method: 'get',
           //url:`/api/v1/search/image?query=${this.$store.getters.getCelebName}&display=10&sort=sim&filter=small`,
-          url:`/kakaoapi/v2/search/image?query=${this.$store.getters.getCelebName}${this.storeGetGender}&size=40&sort=accuracy&page=1`,
+          url:`/kakaoapi/v2/search/image?query=${this.$store.getters.getCelebName}&size=40&sort=recency&page=1`, //recency, accuracy
           headers:{
             // 'content-type': 'multipart/form-data',
             //'X-Naver-Client-Id':client_id,
