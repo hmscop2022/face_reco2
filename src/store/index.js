@@ -6,6 +6,7 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     tabname:'upload',
+    image:'',
     uploadImageData:'/static/images/blank-profile-picture-gee2347716_640.png',
     celebName:'',
     percentage:0,
@@ -54,6 +55,9 @@ export default new Vuex.Store({
     },
     getGender(state){
       return state.gender
+    },
+    getImage(state){
+      return state.image
     },
   }
 })

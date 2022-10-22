@@ -97,6 +97,7 @@ export default {
   data () {
     return {
       celebImgLinkArr:[],
+      imageLoaded: false,
     }
   },
   created(){
@@ -104,22 +105,29 @@ export default {
       this.onGetAxiosTest();
     }
   },
+  watch: {
+    storeGetCelebName(val, oldVal){
+      if(!this.imageLoaded){
+        this.onGetAxiosTest();
+      }
+    }
+  },
   methods: {
     onGetAxiosTest(){
-      var kakao_rest_api_key = '9cec24e8875fb096b3b5a6b10e7f1705';
-      //var client_id = 'nNjMkaAeBrwzpZ9QqO35';
-      //var client_secret = 'jGm8rl5QxU';
-      const config = {
-        method: 'get',
-        //url:`/api/v1/search/image?query=${this.$store.getters.getCelebName}&display=10&sort=sim&filter=small`,
-        url:`/kakaoapi/v2/search/image?query=${this.$store.getters.getCelebName}&size=40&sort=accuracy&page=1`,
-        headers:{
-          // 'content-type': 'multipart/form-data',
-          //'X-Naver-Client-Id':client_id,
-          //'X-Naver-Client-Secret': client_secret,
-          'Authorization': `KakaoAK ${kakao_rest_api_key}`,
+        var kakao_rest_api_key = '9cec24e8875fb096b3b5a6b10e7f1705';
+        //var client_id = 'nNjMkaAeBrwzpZ9QqO35';
+        //var client_secret = 'jGm8rl5QxU';
+        const config = {
+          method: 'get',
+          //url:`/api/v1/search/image?query=${this.$store.getters.getCelebName}&display=10&sort=sim&filter=small`,
+          url:`/kakaoapi/v2/search/image?query=${this.$store.getters.getCelebName}${this.storeGetGender}&size=40&sort=accuracy&page=1`,
+          headers:{
+            // 'content-type': 'multipart/form-data',
+            //'X-Naver-Client-Id':client_id,
+            //'X-Naver-Client-Secret': client_secret,
+            'Authorization': `KakaoAK ${kakao_rest_api_key}`,
+          }
         }
-      }
 
       axios(config)
         .then(res => {
@@ -136,6 +144,7 @@ export default {
                 if(count >= 10){
                   break;
                 }
+                this.imageLoaded = true;
               }
             }
             this.celebImgLinkArr = items;

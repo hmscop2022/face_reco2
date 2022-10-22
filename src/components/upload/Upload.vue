@@ -20,6 +20,9 @@ export default {
     storeGetUploadImageData(){
       return this.$store.getters.getUploadImageData
     },
+    storeGetImage(){
+      return this.$store.getters.getImage
+    },
   },
   data () {
     return {
@@ -88,17 +91,17 @@ export default {
                 imageData.replace('data:image/jpeg;base64,', '');
 
                 let blobToFile = vm.dataURItoBlob(imageData);
-                this.image = new File([blobToFile], name + ".jpg",
-                    {type: "image/jpeg", lastModified: Date.now()});
+                var imageFile = new File([blobToFile], name + ".jpg",{type: "image/jpeg", lastModified: Date.now()});
+                this.$store.dispatch('callChangeValue',{image: imageFile});
             }.bind(this);
           }
       }
     },
-    onGetAxiosTest(){
+    async onGetAxiosTest(){
       var client_id = 'nNjMkaAeBrwzpZ9QqO35';
       var client_secret = 'jGm8rl5QxU';
       const formData = new FormData();
-      formData.append('image', this.image)
+      formData.append('image', this.storeGetImage)
       const config = {
         headers:{
           // 'content-type': 'multipart/form-data',
@@ -106,7 +109,7 @@ export default {
           'X-Naver-Client-Secret': client_secret,
         }
       }
-      axios.post('/api/v1/vision/celebrity',formData, config)
+      await axios.post('/api/v1/vision/celebrity',formData, config)
         .then(res => {
           var celeb = res.data.faces[0].celebrity.value
           var percentage = Math.round(res.data.faces[0].celebrity.confidence*100)+'%';
@@ -118,7 +121,7 @@ export default {
         .finally(()=>{
 
         })
-      axios.post('/api/v1/vision/face',formData, config)
+      await axios.post('/api/v1/vision/face',formData, config)
         .then(res => {
           const {age, emotion, gender} = res.data.faces[0];
           this.$store.dispatch('callChangeValue',{age:age.value, emotion:emotion.value, gender:gender.value});
@@ -129,6 +132,10 @@ export default {
         .finally(()=>{
 
         })
+
+        alert('찾기 완료! 분석결과 탭으로 이동 합니다');
+        this.$store.dispatch('callChangeTabname',{tabname: 'analysis'});
+        this.$router.push('/analysis');
     },
     dataURItoBlob(dataURI) {
         // convert base64 to raw binary data held in a string
