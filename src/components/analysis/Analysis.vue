@@ -28,7 +28,7 @@
       <span v-text="storeGetCelebName"></span><span class="celebName_percentage">(<span v-text="storeGetPercentage"></span>)</span>
     </div>
     <div class="img_horizon_container">
-      <img v-for="item in celebImgLinkArr" :src="item.link" alt="" :width="item.sizewidth" />
+      <img v-for="item in celebImgLinkArr" :src="item.image_url" alt="" :width="item.width" />
     </div>
     <div class="kakaoBtnWrapper">
       <div class="kakaoBtn">
@@ -106,23 +106,43 @@ export default {
   },
   methods: {
     onGetAxiosTest(){
-      var client_id = 'nNjMkaAeBrwzpZ9QqO35';
-      var client_secret = 'jGm8rl5QxU';
+      var kakao_rest_api_key = '9cec24e8875fb096b3b5a6b10e7f1705';
+      //var client_id = 'nNjMkaAeBrwzpZ9QqO35';
+      //var client_secret = 'jGm8rl5QxU';
       const config = {
         method: 'get',
-        url:`/api/v1/search/image?query=${this.$store.getters.getCelebName}&display=10&sort=sim&filter=small`,
+        //url:`/api/v1/search/image?query=${this.$store.getters.getCelebName}&display=10&sort=sim&filter=small`,
+        url:`/kakaoapi/v2/search/image?query=${this.$store.getters.getCelebName}&size=40&sort=accuracy&page=1`,
         headers:{
           // 'content-type': 'multipart/form-data',
-          'X-Naver-Client-Id':client_id,
-          'X-Naver-Client-Secret': client_secret,
+          //'X-Naver-Client-Id':client_id,
+          //'X-Naver-Client-Secret': client_secret,
+          'Authorization': `KakaoAK ${kakao_rest_api_key}`,
         }
       }
 
       axios(config)
         .then(res => {
-          if(res.data.items != null && res.data.items.length > 0){
-            this.celebImgLinkArr = res.data.items;
+          console.log(res);
+          var items = [];
+          if(res != null && res != undefined && res.data != null && res.data.documents != null && res.data.documents.length >0){
+            var index = 0;
+            var count = 0;
+            for(index = 0; index < res.data.documents.length ;index ++){
+              if(res.data.documents[index].image_url.startsWith('https')){
+                count++;
+                console.log(res.data.documents[index].image_url);
+                items.push(res.data.documents[index]);
+                if(count >= 10){
+                  break;
+                }
+              }
+            }
+            this.celebImgLinkArr = items;
           }
+          // if(res.data.items != null && res.data.items.length > 0){
+          //   this.celebImgLinkArr = res.data.items;
+          // }
         })
         .catch(res=>{
 

@@ -15,6 +15,11 @@ module.exports = {
         target:'https://openapi.naver.com',
         pathRewrite:{"^/api":"/"},
         changeOrigin:true,
+      },
+      '/kakaoapi':{
+        target:'https://dapi.kakao.com',
+        pathRewrite:{"^/kakaoapi":"/"},
+        changeOrigin:true,
       }
     },
 

@@ -3,3 +3,14 @@
   to = "https://openapi.naver.com/:splat"
   status = 200
   force = true
+
+  [[redirects]]
+    from = "/kakaoapi/*"
+    to = "https://dapi.kakao.com/:splat"
+    status = 200
+    force = true
+
+    [[redirects]]
+      from = "/*"
+      to = "/index.html"
+      status = 200
