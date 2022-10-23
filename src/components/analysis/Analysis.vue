@@ -43,6 +43,10 @@
 <script>
 import axios from 'axios'
 export default {
+  mounted(){
+    console.log('mounted');
+    this.$store.dispatch('callChangeTabname',{tabname: 'analysis'})
+  },
   computed: {
     storeGetUploadImageData(){
       return this.$store.getters.getUploadImageData
@@ -219,6 +223,7 @@ export default {
   }
   .kakaoBtnWrapper{
     padding: 15px 10px;
+    cursor:pointer;
   }
   .kakaoBtn{
     display:flex;

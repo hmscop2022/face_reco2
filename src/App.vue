@@ -10,6 +10,8 @@
       </div>
     </div>
     <Footer></Footer>
+    <LoadingSpinner v-show="storeGetIsLoading"></LoadingSpinner>
+    <ToastMessage v-show="storeGetIsToastMessage"></ToastMessage>
   </div>
 </template>
 
@@ -19,9 +21,19 @@ import Navigation from './components/common/Navigation.vue'
 import Upload from './components/upload/Upload.vue'
 import Footer from './components/common/Footer.vue'
 import Analysis from './components/analysis/Analysis.vue'
+import LoadingSpinner from './components/common/LoadingSpinner.vue'
+import ToastMessage from './components/common/ToastMessage.vue'
 
 export default {
   name: 'app',
+  computed: {
+    storeGetIsLoading(){
+      return this.$store.getters.getIsLoading
+    },
+    storeGetIsToastMessage(){
+      return this.$store.getters.getIsToastMessage
+    },
+  },
   data () {
     return {
 
@@ -33,6 +45,8 @@ export default {
     'Upload': Upload,
     'Footer': Footer,
     'Analysis':Analysis,
+    'LoadingSpinner':LoadingSpinner,
+    'ToastMessage':ToastMessage,
   }
 }
 </script>

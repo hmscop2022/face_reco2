@@ -3,13 +3,17 @@
     <ul class="bl_tabNav_inner">
       <li>
         <router-link
-          to="/"
+          to='/'
+          replace
+          exact
           v-bind:class="[true?'bl_tabNav_link':'', true?'ic_image':'', getIsActive('upload')?'is_active':'']"
           @click.native="onChangeTabname('upload')">업로드</router-link>
       </li>
       <li>
         <router-link
-          to="/analysis"
+          to='/analysis'
+          replace
+          exact
           v-bind:class="[true?'bl_tabNav_link':'', true?'ic_fileLines':'', getIsActive('analysis')?'is_active':'']"
           @click.native="onChangeTabname('analysis')">분석결과</router-link>
       </li>

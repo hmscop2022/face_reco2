@@ -16,6 +16,31 @@
 <script>
 import axios from 'axios'
 export default {
+  beforeCreate(){
+    console.log('beforeCreate')
+  },
+  created(){
+    console.log('created')
+  },
+  beforeMount(){
+    console.log('beforeMount')
+  },
+  mounted(){
+    console.log('mounted');
+    this.$store.dispatch('callChangeTabname',{tabname: 'upload'})
+  },
+  beforeUpdate(){
+    console.log('beforeUpdate')
+  },
+  updated(){
+    console.log('updated')
+  },
+  beforeDestroy(){
+    console.log('beforeDestroy')
+  },
+  destroyed(){
+    console.log('destroyed')
+  },
   computed: {
     storeGetUploadImageData(){
       return this.$store.getters.getUploadImageData
@@ -98,6 +123,7 @@ export default {
       }
     },
     async onGetAxiosTest(){
+      this.$store.dispatch('callChangeValue',{isLoading: true});
       var client_id = 'nNjMkaAeBrwzpZ9QqO35';
       var client_secret = 'jGm8rl5QxU';
       const formData = new FormData();
@@ -132,10 +158,13 @@ export default {
         .finally(()=>{
 
         })
-
-        alert('찾기 완료! 분석결과 탭으로 이동 합니다');
+        this.$store.dispatch('callChangeValue',{isLoading: false});
+        this.$store.dispatch('callChangeValue',{isToastMessage: true});
+        setTimeout(function(){
+          this.$store.dispatch('callChangeValue',{isToastMessage: false});
+        }.bind(this), 2000);
         this.$store.dispatch('callChangeTabname',{tabname: 'analysis'});
-        this.$router.push('/analysis');
+        this.$router.replace('/analysis');
     },
     dataURItoBlob(dataURI) {
         // convert base64 to raw binary data held in a string

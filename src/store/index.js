@@ -13,6 +13,8 @@ export default new Vuex.Store({
     age:0,
     emotion:'',
     gender:'',
+    isLoading:false,
+    isToastMessage: false,
   },
   mutations: {
     changeTabname(state, val){
@@ -58,6 +60,12 @@ export default new Vuex.Store({
     },
     getImage(state){
       return state.image
+    },
+    getIsLoading(state){
+      return state.isLoading
+    },
+    getIsToastMessage(state){
+      return state.isToastMessage
     },
   }
 })
