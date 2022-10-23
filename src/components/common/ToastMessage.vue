@@ -17,6 +17,7 @@ export default {
   width:100%;
 }
 .toastMessage{
+  width:80%;
   position:fixed;
   bottom: 8em;
   display:inline-block;
@@ -27,5 +28,6 @@ export default {
   color: white;
   border-radius: 1rem;
   font-weight: bold;
+  text-align: center;
 }
 </style>
