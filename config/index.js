@@ -20,6 +20,16 @@ module.exports = {
         target:'https://dapi.kakao.com',
         pathRewrite:{"^/kakaoapi":"/"},
         changeOrigin:true,
+      },
+      '/kakaoDevelop':{
+        target:'https://developers.kakao.com',
+        pathRewrite:{"^/kakaoDevelop":"/"},
+        changeOrigin:true,
+      },
+      '/naverImage':{
+        target:'http://imgnews.naver.net',
+        pathRewrite:{"^/naverImage":"/"},
+        changeOrigin:true,
       }
     },
 

@@ -4,13 +4,24 @@
   status = 200
   force = true
 
-  [[redirects]]
-    from = "/kakaoapi/*"
-    to = "https://dapi.kakao.com/:splat"
-    status = 200
-    force = true
+[[redirects]]
+  from = "/kakaoapi/*"
+  to = "https://dapi.kakao.com/:splat"
+  status = 200
+  force = true
+[[redirects]]
+  from = "/kakaoDevelop/*"
+  to = "https://developers.kakao.com/:splat"
+  status = 200
+  force = true
 
-    [[redirects]]
-      from = "/*"
-      to = "/index.html"
-      status = 200
+[[redirects]]
+  from = "/naverImage/*"
+  to = "http://imgnews.naver.net/:splat"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
